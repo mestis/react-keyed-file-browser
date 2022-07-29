@@ -10,10 +10,10 @@ class RawTableFolder extends BaseFolder {
   render() {
     const {
       isOpen, isDragging, isDeleting, isRenaming, isDraft, isOver, isSelected,
-      action, url, browserProps, connectDragPreview, depth,
+      action, url, browserProps, connectDragPreview, depth, icon,
     } = this.props
 
-    const icon = browserProps.icons[isOpen ? 'FolderOpen' : 'Folder']
+    const folderIcon = icon ?? browserProps.icons[isOpen ? 'FolderOpen' : 'Folder']
     const inAction = (isDragging || action)
 
     const ConfirmDeletionRenderer = browserProps.confirmDeletionRenderer
@@ -26,7 +26,7 @@ class RawTableFolder extends BaseFolder {
           handleFileClick={this.handleFileClick}
           url={url}
         >
-          {icon}
+          {folderIcon}
           {this.getName()}
         </ConfirmDeletionRenderer>
       )
@@ -34,7 +34,7 @@ class RawTableFolder extends BaseFolder {
       name = (
         <div>
           <form className="renaming" onSubmit={this.handleRenameSubmit}>
-            {icon}
+            {folderIcon}
             <input
               type="text"
               ref={this.selectFolderNameFromRef}
@@ -50,7 +50,7 @@ class RawTableFolder extends BaseFolder {
       name = (
         <div>
           <a onClick={this.toggleFolder}>
-            {icon}
+            {folderIcon}
             {this.getName()}
           </a>
         </div>

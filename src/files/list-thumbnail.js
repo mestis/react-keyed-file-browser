@@ -19,12 +19,14 @@ class RawListThumbnailFile extends BaseFile {
     const {
       thumbnail_url: thumbnailUrl, action, url,
       isDragging, isRenaming, isSelected, isSelectable, isOver, isDeleting,
-      showName, showSize, showModified, browserProps, connectDragPreview,
+      showName, showSize, showModified, browserProps, connectDragPreview, icon,
     } = this.props
 
-    let icon
-    if (thumbnailUrl) {
-      icon = (
+    let fileIcon
+    if (icon) {
+      fileIcon = icon
+    } else if (thumbnailUrl) {
+      fileIcon = (
         <div
           className="image"
           style={{
@@ -33,7 +35,7 @@ class RawListThumbnailFile extends BaseFile {
         />
       )
     } else {
-      icon = browserProps.icons[this.getFileType()] || browserProps.icons.File
+      fileIcon = browserProps.icons[this.getFileType()] || browserProps.icons.File
     }
 
     const inAction = (isDragging || action)
@@ -112,7 +114,7 @@ class RawListThumbnailFile extends BaseFile {
         {...rowProps}
       >
         <div className="item">
-          <span className="thumb">{icon}</span>
+          <span className="thumb">{fileIcon}</span>
           <span className="name">{name}</span>
           {size}
           {modified}
