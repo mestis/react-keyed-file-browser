@@ -14,10 +14,10 @@ class RawTableFile extends BaseFile {
     const {
       isDragging, isDeleting, isRenaming, isOver, isSelected,
       action, url, browserProps, connectDragPreview,
-      depth, size, modified, columns,
+      depth, size, modified, columns, icon,
     } = this.props
 
-    const icon = browserProps.icons[this.getFileType()] || browserProps.icons.File
+    const fileIcon = icon ?? (browserProps.icons[this.getFileType()] || browserProps.icons.File)
     const inAction = (isDragging || action)
 
     const ConfirmDeletionRenderer = browserProps.confirmDeletionRenderer
@@ -30,14 +30,14 @@ class RawTableFile extends BaseFile {
           handleFileClick={this.handleFileClick}
           url={url}
         >
-          {icon}
+          {fileIcon}
           {this.getName()}
         </ConfirmDeletionRenderer>
       )
     } else if (!inAction && isRenaming) {
       name = (
         <form className="renaming" onSubmit={this.handleRenameSubmit}>
-          {icon}
+          {fileIcon}
           <input
             ref={this.selectFileNameFromRef}
             type="text"
@@ -55,7 +55,7 @@ class RawTableFile extends BaseFile {
           download="download"
           onClick={this.handleFileClick}
         >
-          {icon}
+          {fileIcon}
           {this.getName()}
         </a>
       )

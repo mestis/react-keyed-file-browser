@@ -13,10 +13,10 @@ class RawListThumbnailFolder extends BaseFolder {
   render() {
     const {
       isOpen, isDragging, isDeleting, isRenaming, isDraft, isOver, isSelected,
-      url, action, browserProps, depth, keyDerived, connectDragPreview, t,
+      url, action, browserProps, depth, keyDerived, connectDragPreview, t, icon,
     } = this.props
 
-    const icon = browserProps.icons[isOpen ? 'FolderOpen' : 'Folder']
+    const folderIcon = icon ?? browserProps.icons[isOpen ? 'FolderOpen' : 'Folder']
 
     const inAction = (isDragging || action)
 
@@ -109,7 +109,7 @@ class RawListThumbnailFolder extends BaseFolder {
         onDoubleClick={this.handleFolderDoubleClick}
       >
         <div className="item">
-          <span className="thumb">{icon}</span>
+          <span className="thumb">{folderIcon}</span>
           <span className="name">{name}</span>
         </div>
         {children}
