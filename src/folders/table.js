@@ -5,12 +5,13 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 
 import BaseFolder, { BaseFolderConnectors } from './../base-folder.js'
 import { BaseFileConnectors } from './../base-file.js'
+import { withNamespaces } from 'react-i18next'
 
 class RawTableFolder extends BaseFolder {
   render() {
     const {
       isOpen, isDragging, isDeleting, isRenaming, isDraft, isOver, isSelected,
-      action, url, browserProps, connectDragPreview, depth, icon,
+      action, url, browserProps, connectDragPreview, depth, children, t, icon,
     } = this.props
 
     const folderIcon = icon ?? browserProps.icons[isOpen ? 'FolderOpen' : 'Folder']
@@ -87,6 +88,23 @@ class RawTableFolder extends BaseFolder {
       </tr>
     )
 
+    if (isOpen && children.length === 0) {
+      return (
+        <>
+          {this.connectDND(folder)}
+          <tr>
+            <td className="name">
+              <div style={{ paddingLeft: ((depth + 1) * 16) + 'px' }}>
+                <i>{t('noItemsInThisFolder')}</i>
+              </div>
+            </td>
+            <td />
+            <td />
+          </tr>
+        </>
+      )
+    }
+
     return this.connectDND(folder)
   }
 }
@@ -99,5 +117,5 @@ class RawTableFolder extends BaseFolder {
 )
 class TableFolder extends RawTableFolder {}
 
-export default TableFolder
+export default withNamespaces()(TableFolder)
 export { RawTableFolder }
